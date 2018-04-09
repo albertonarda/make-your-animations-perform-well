@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Make your animations perform well</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section data-markdown>
+				<textarea data-template>
+					## Make your animations perform well
+					Alberto Narda<br>_FrontEnd Architect_
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### What will we cover? 
+					- CSS vs JavaScript
+					- How does a browser paint a website?
+					- Layers
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					[Repaintless example](http://szynszyliszys.github.io/repaintless/)
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### Don’t use animations <br>if they are not helping anyone
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### CSS vs JavaScript
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### CSS animation
+					- Great for simple animations
+					- Browsers optimize for them (GPU acceleration)
+					- Native, no need to download anything
+					- Scheduling animations together in time is hard
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### Javascript animations
+					- More control over scheduling and timing
+					- Many options with different pros/cons
+						- Pure JavaScript
+						- Web Animation API (polyfill and vendor prefixes)
+						- Frameworks (recommended: Greensock AP)
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### How does a browser paint a website?
+					1. Request
+					2. Parse HTML
+					3. Calculate Styles
+					4. Layout
+					5. Paint
+					6. Composite Layers
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### And when there is a change on the page?
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### Layout change
+					(width, margin, left...)
+					1. Javascript			
+					2. Recalculate Styles
+					3. Layout
+					4. Paint
+					4. Composite Layers
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### Paint change
+					(backgound-color, box-shadow, background-image)
+					1. Javascript			
+					2. Recalculate Styles
+					3. ~~Layout~~
+					4. Paint
+					4. Composite Layers
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### Compositing change
+					(transform, opacity)
+					1. Javascript			
+					2. Recalculate Styles
+					3. ~~Layout~~
+					4. ~~Paint~~
+					4. Composite Layers
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					[https://csstriggers.com](https://csstriggers.com)
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### Use transform and opacity when possible
+					- GPU acceleration
+					- Layer promotion
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					## Layers
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					### What creates new layers?
+					- 3D or perspective transforms
+					- Animated 2d transforms or opacity
+					- Being on top/a child of a compositing layer
+					- Accelerated CSS filters
+					- will-change property
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+					###	will-change rules
+					- Give a browser a moment to think (use :hover)
+					- Don’t try to optimize too many elements
+					- Use in the stylesheets if the change happens constantly
+					- Remove it once the animation is finished
+					- Not supported in IE, Edge (you can use translate3d(0,0,0))					
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+						<pre><code data-trim data-noescape>
+						*,
+						*::before,
+						*::after {
+							will-change: all;
+						}</code></pre>
+				</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+						# NEVER
+					</textarea>
+			</section>
+
+			<section data-markdown>
+				<textarea data-template>
+					### Thank you
+					@albertonarda
+				</textarea>
+			</section>
+
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			controls: false,
+			history: true,
+			transition: 'fade',
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+			]
+		});
+	</script>
+</body>
+
+</html>
