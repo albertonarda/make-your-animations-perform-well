@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Demo3</title>
+    <link rel="stylesheet" media="screen" href="style.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div>
+        <span id="a"></span>setInterval
+    </div>
+    <div>
+        <span id="b"></span>requestAnimationFrame
+    </div>
+    <script>
+        var a = document.getElementById('a');
+        var b = document.getElementById('b');
+        var globalID;
+        var aWidth = 0;
+        var id = setInterval(function () {
+            if (aWidth == 1300) {
+                clearInterval(id);
+                return;
+            }
+            aWidth += 5;
+            a.style.width = aWidth + 'px';
+        }, 1000 / 60);
+
+        function loop(fn) {
+            (function animLoop() {
+                if (fn()) {
+                    globalID = requestAnimationFrame(animLoop);
+                }
+            })();
+        }
+
+        var bWidth = 0;
+        loop(function () {
+            if (bWidth == 1300) {
+                cancelAnimationFrame(globalID);
+                return false;
+            }
+            bWidth += 5;
+            b.style.width = bWidth + 'px';
+            return true;
+        })
+    </script>
+</body>
+
+</html>

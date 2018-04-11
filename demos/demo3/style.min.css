@@ -62,50 +62,13 @@ button {
 h1 {
   padding-left: 20px;
 }
-
-.animation {
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
+body {
+  color: #000;
 }
 
-.animation div {
-  width: 45%;
-  position: relative;
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-button,
-button:focus {
-  border: none;
-  outline: none;
-}
-
-.btn1:active {
-  animation: rotate 1s infinite;
-}
-
-.btn2:hover {
-  will-change: transform;
-}
-
-.btn2:active {
-  animation: rotate 1s infinite;
-}
-
-.animation div.hoverdiv {
-  position: absolute;
-  height: 200px;
-  width: 50px;
-  left: 80px;
-  top: 100px;
-  border: solid 3px red;
+span {
+  display: inline-block;
+  height: 20px;
+  width: 0;
+  background: #fcdba1;
 }

@@ -67,6 +67,7 @@ h1 {
   padding: 20px;
   display: flex;
   justify-content: space-between;
+  height: 700px;
 }
 
 .animation div {
@@ -104,4 +105,24 @@ h1 {
 
 .element2:hover {
   transform: translateX(-200px);
+}
+
+.grow {
+  transition: all 0.2s ease-in-out;
+  margin-left: 32px;
+}
+.grow:hover {
+  transform: scale(1.1);
+}
+
+.grow2 {
+  transition: all 0.2s ease-in-out;
+  transform: scale(0.9);
+}
+.grow2:hover {
+  transform: none;
+}
+
+img {
+  padding: 0;
 }
